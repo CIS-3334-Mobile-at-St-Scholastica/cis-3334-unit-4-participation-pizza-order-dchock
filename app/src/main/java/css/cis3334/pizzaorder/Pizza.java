@@ -16,6 +16,7 @@ public class Pizza {
     private Double price;
     private String description;
 
+
     public Pizza(String topping, pizzaSize size, boolean extraCheese) {
         this.topping = topping;
         this.size = size;
@@ -25,10 +26,10 @@ public class Pizza {
             description = "Small " + topping + " pizza";
         } else if (size==pizzaSize.MEDIUM) {
             price = MEDIUM_PRICE;
-            description = "Small " + topping + " pizza";
+            description = "Medium " + topping + " pizza";
         } else {
             price = LARGE_PRICE;
-            description = "Small " + topping + " pizza";
+            description = "Large " + topping + " pizza";
         }
         if (extraCheese) {
             price += EXTRA_CHEESE_PRICE;;
