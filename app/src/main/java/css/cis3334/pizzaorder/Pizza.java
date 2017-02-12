@@ -9,16 +9,19 @@ public class Pizza {
     public static final Double MEDIUM_PRICE = 9.00;
     public static final Double LARGE_PRICE = 11.00;
     public static final Double EXTRA_CHEESE_PRICE = 1.50;
+    public static final Double DELIVERY_PRICE = 10.00;
 
     private String topping;
     private boolean extraCheese;
+    private boolean delivery;
     private pizzaSize size;
     private Double price;
     private String description;
 
 
-    public Pizza(String topping, pizzaSize size, boolean extraCheese) {
+    public Pizza(String topping, pizzaSize size, boolean extraCheese, boolean delivery) {
         this.topping = topping;
+        this.delivery = delivery;
         this.size = size;
         this.extraCheese = extraCheese;
         if (size==pizzaSize.SMALL) {
@@ -32,8 +35,13 @@ public class Pizza {
             description = "Large " + topping + " pizza";
         }
         if (extraCheese) {
-            price += EXTRA_CHEESE_PRICE;;
+            price += EXTRA_CHEESE_PRICE;
             description += " with extra cheese";
+        }
+
+        if (delivery) {
+            price += DELIVERY_PRICE;
+            description += " to be delivered";
         }
     }
 
@@ -44,5 +52,6 @@ public class Pizza {
     public String toString() {
         return description;
     }
+
 
 }

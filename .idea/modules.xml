@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/InClassPizzaOrder.iml" filepath="$PROJECT_DIR$/InClassPizzaOrder.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cis-3334-unit-4-participation-pizza-order-dchock.iml" filepath="$PROJECT_DIR$/cis-3334-unit-4-participation-pizza-order-dchock.iml" />
     </modules>
   </component>
 </project>

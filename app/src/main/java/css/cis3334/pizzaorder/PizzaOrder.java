@@ -1,5 +1,6 @@
 package css.cis3334.pizzaorder;
 
+import android.os.Handler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -23,25 +24,27 @@ public class PizzaOrder implements PizzaOrderInterface {
     }
 
     @Override
-    public String OrderPizza(String topping, String strSize, boolean extraCheese){
-        Pizza.pizzaSize size;
+    public String OrderPizza(String topping, String strSize, boolean extraCheese, boolean delivery){
+        Pizza.pizzaSize size = null;
         if (strSize.equalsIgnoreCase("small")) {
             size = Pizza.pizzaSize.SMALL;
         } else  if (strSize.equalsIgnoreCase("medium")) {
             size = Pizza.pizzaSize.MEDIUM;
-        } else {
+        } else if (strSize.equalsIgnoreCase("large")) {
             size = Pizza.pizzaSize.LARGE;
         }
-        Pizza newPizza = new Pizza(topping, size, extraCheese);
+        Pizza newPizza = new Pizza(topping, size, extraCheese, delivery);
         pizzasInOrder.add(newPizza);
         view.updateView(newPizza.toString() + " added to order");
 
+        startPizzaTimer();
         return newPizza.toString();             // return a description of what was ordered
+
     }
 
     @Override
     public Double getTotalBill() {
-        Double total = 0.0;
+        Double total = 0.00;
         for (Pizza p:pizzasInOrder ){
             total += p.getPrice();
         }
@@ -50,6 +53,7 @@ public class PizzaOrder implements PizzaOrderInterface {
         }
         return total;
     }
+    
 
     @Override
     public Double getSmallPrice () {
@@ -81,20 +85,37 @@ public class PizzaOrder implements PizzaOrderInterface {
         return delivery;
     }
 
-    static Integer timer = 0;
-    public void startPizzaTimer(){
+    /**
+     * This class implements a timer for the baking pizza
+     */
+    private static Runnable pizzaTimer;
+    private Handler handler;
+    private void startPizzaTimer(){
+        handler = new Handler();
+        pizzaTimer = new PizzaTimer();
+        handler.postDelayed(pizzaTimer, 1000);
+    }
+    private class PizzaTimer implements Runnable {
+        private Integer count = 0;
 
-        final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleWithFixedDelay(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                timer ++;
+        @Override
+        public void run() {
+            view.updateView("Starting timer ");
+            count++;
+            if (count > 4) {
+                view.updateView("Pizza ready to eat");
+            } else if (count > 3) {
+                view.updateView("Pizza is cooling");
+                handler.postDelayed(this, 2000);        // cool pizza for 2 seconds
+            } else if (count > 2) {
                 view.updateView("Pizza is baking");
+                handler.postDelayed(this, 5000);        // bake pizza for 5 seconds
+            } else {
+                view.updateView("Pizza is being prepared ");
+                handler.postDelayed(this, 2000);        // wait 2 seconds for pizza to be prepared
             }
-        }, 0, 5, TimeUnit.SECONDS);
 
+        }
     }
 
 }

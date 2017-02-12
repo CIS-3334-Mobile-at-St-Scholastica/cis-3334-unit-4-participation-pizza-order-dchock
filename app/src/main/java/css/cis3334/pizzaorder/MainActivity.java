@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
     TextView txtStatus;
     PizzaOrderInterface pizzaOrderSystem;
     Spinner spinnerToppings;
+    String strSize;
+    String topping;
+    boolean cheese = false;
+    boolean delivery = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +46,37 @@ public class MainActivity extends AppCompatActivity implements updateViewInterfa
 
     @Override
     public void updateView(String orderStatus) {
-        txtStatus.setText("Order Status" + orderStatus);
+        txtStatus.setText("Order Status " + orderStatus);
     }
 
     public void onClickOrder(View view) {
-        String topping = spinnerToppings.getSelectedItem().toString();
-        String size = "large";
+
         if (rbSmall.isChecked()) {
-            size = "small";
+            strSize = "small";
         } else if (rbMedium.isChecked()) {
-            size = "medium";
+            strSize = "medium";
+        } else if (rbLarge.isChecked()){
+            strSize = "large";
         } else {
-            size = "large";
+            txtStatus.setText("Please select a pizza");
         }
-        String orderDescription = pizzaOrderSystem.OrderPizza("Pepperoni","Large", false);
+
+        if (chkbxCheese.isChecked()) {
+            cheese = true;
+        }
+
+        if (chkbxDelivery.isChecked()) {
+            delivery = true;
+        }
+
+        topping = spinnerToppings.getSelectedItem().toString();
+
+        String orderDescription = pizzaOrderSystem.OrderPizza(topping, strSize, cheese, delivery);
 
         //display a pop up message for a long period of time
-        Toast.makeText(getApplicationContext(), "You have ordered a "+orderDescription , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "You have ordered a "+ orderDescription, Toast.LENGTH_LONG).show();
         txtTotal.setText("Total Due: " + pizzaOrderSystem.getTotalBill().toString());
     }
+
+
 }

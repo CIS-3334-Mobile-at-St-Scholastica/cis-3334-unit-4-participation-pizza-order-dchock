@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">PizzaOrder</string>
-    <string name="small_pizza">Small Pizza</string>
-    <string name="large_pizza">Large Pizza</string>
-    <string name="mediumpizza">MediumPizza</string>
-    <string name="checkboxdelivery">CheckBoxDelivery</string>
-    <string name="checkboxextracheese">CheckBoxExtraCheese</string>
+    <string name="small_pizza">Small Pizza ($7)</string>
+    <string name="large_pizza">Large Pizza ($11)</string>
+    <string name="mediumpizza">MediumPizza ($9)</string>
+    <string name="checkboxdelivery">Delivery ($10)</string>
+    <string name="checkboxextracheese">Extra Cheese ($1.50)</string>
     <string name="order_status_nothing_ordered_yet">Order Status: Nothing ordered yet</string>
-    <string name="order">Order</string>
+    <string name="order">Order </string>
     <string name="total_due">Total Due:</string>
     <string-array name="toppings">
         <item>Pepperoni</item>
